@@ -33,11 +33,11 @@ import java.util.List;
 /**
  * Created by mr.cheng on 2016/8/5.
  */
-public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Callback {
+public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Callback {
     //start
     private String filename = null;
     private TextView one, two, three, four, five, six, seven, eight, xinlv;
-    private int len = 0;
+    private int len = 64000;
     private String chunkdescriptor = null;
     private int lenchunkdescriptor = 4;
     private long chunksize = 0;
@@ -68,7 +68,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
     //end
     private SimpleDateFormat format;
     private Date date;
-    private int[] xinlvdatas=new int[8];
+    private int[] xinlvdatas = new int[8];
     private int counter;
     private SurfaceHolder mHolder;
     private Canvas mCanvas;
@@ -135,15 +135,15 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
 
     public void GoToDraw(Handler handler, TextView textView, TextView one, TextView two, TextView three, TextView four, TextView five, TextView six, TextView seven, TextView eight, TextView xinlv) {
         this.mHandler = handler;
-        this.xinlv=textView;
-        this.one=one;
-        this.two=two;
-        this.three=three;
-        this.four=four;
-        this.five=five;
-        this.six=six;
-        this.seven=seven;
-        this.eight=eight;
+        this.xinlv = textView;
+        this.one = one;
+        this.two = two;
+        this.three = three;
+        this.four = four;
+        this.five = five;
+        this.six = six;
+        this.seven = seven;
+        this.eight = eight;
         mIsDrawing = true;
 
     }
@@ -275,7 +275,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
 //////}
 //    }
 
-//    /**
+    //    /**
 //     * 测试audioTrack,录音
 //     */
 //    private AudioRecord recorder;
@@ -304,7 +304,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
 //
 //        }
 //    }
-
+//
     private void MyDraw(double[] buf) {
         counter++;
         if (start == 0) oldX = 0;
@@ -312,7 +312,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
         mCanvas.drawColor(Color.WHITE);
         for (int i = 0; i < buf.length; i++) {
             int x = i + start;
-            float y = (N0 - (float) (buf[i]  * N1));
+            float y = (N0 - (float) (buf[i] * N1));
             mCanvas.drawLine(oldX, oldY, x, y, mPaint);
             oldX = x;
             oldY = y;
@@ -333,120 +333,196 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
 
     }
 
-    private void initReader(String filename) {
-        this.filename = filename;  //获得用户名
+    private void openFile() {
         try {
-            fis = new FileInputStream(this.filename);
-            bis = new BufferedInputStream(fis);
-
-            this.chunkdescriptor = readString(lenchunkdescriptor);
-            if (!chunkdescriptor.endsWith("RIFF"))  //0~3检查前四个字节是否为RIFF
-                throw new IllegalArgumentException("RIFF miss, " + filename + " is not a wave file.");
-
-            this.chunksize = readLong();  //4~7代表大小
-            this.waveflag = readString(lenwaveflag);
-            if (!waveflag.endsWith("WAVE"))  //8~11检查是不是WAVE这四个字节
-                throw new IllegalArgumentException("WAVE miss, " + filename + " is not a wave file.");
-
-            this.fmtubchunk = readString(lenfmtubchunk);
-            if (!fmtubchunk.endsWith("fmt "))  //12~15 fmt"" 检查是不是这个
-                throw new IllegalArgumentException("fmt miss, " + filename + " is not a wave file.");
-
-            this.subchunk1size = readLong();  //16~19代表PCM数据
-            this.audioformat = readInt();  //20~21fmt的头
-            this.numchannels = readInt();  //22~23单声道还是双声道
-            this.samplerate = readLong();  //24~27采样率
-            this.byterate = readLong();  //28~31每秒播放字节数
-            this.blockalign = readInt();  //32~33采样一次占字节数
-            this.bitspersample = readInt();  //34~35量化数 8或者16
-
-            this.datasubchunk = readString(lendatasubchunk);
-            if (!datasubchunk.endsWith("data"))  //36~39肯定是data
-                throw new IllegalArgumentException("data miss, " + filename + " is not a wave file.");
-            this.subchunk2size = readLong();  //40~43采样数据字节数
-
-            this.len = (int) (this.subchunk2size / (this.bitspersample / 8) / this.numchannels);
-
+            bis = new BufferedInputStream(mContext.getResources().openRawResource(R.raw.fmsignal));
             int length;
             byte[] buf = new byte[len * 2];
             double[] doubles = new double[65536];//Modified
-            for (int i = 0; i < this.len; ++i) {
-                for (int n = 0; n < this.numchannels; ++n) {
-                    while ((length = bis.read(buf, 0, buf.length)) != -1) {
-                        short[] shorts = byteArray2ShortArray(buf, buf.length / 2);
-                        getStringFromNative(shorts, doubles);
-                        //这里是写文件的方法
-                        if (!WriteFlag) {
-                            MyWriteFileMethod(doubles);
-                        }
-                        ArrayList<Float>  XH=new ArrayList<>();
-                        for (int q = 0; q < doubles.length / 8; q++) {
-                            XH.add((float) doubles[q ]);
-                        }
-                        xinlvdatas=CaculateXinLv(XH);
-                        //**********************************************************************//
+            while ((length = bis.read(buf, 0, buf.length)) != -1) {
+                short[] shorts = byteArray2ShortArray(buf, buf.length / 2);
+                getStringFromNative(shorts, doubles);
+                //这里是写文件的方法
+                //                        if (!WriteFlag) {
+                //                            MyWriteFileMethod(doubles);
+                //                        }
+                ArrayList<Float> XH = new ArrayList<>();
+                for (int q = 0; q < 4000; q++) {
+                    XH.add((float) doubles[q]);
+                }
+                xinlvdatas = CaculateXinLv(XH);
+                //**********************************************************************//
 
-                        //结束
+                //结束
 
-                        while (true) {
-                            List<Double> mDraws = new ArrayList<>();
-                            double[] draws = new double[(mScreenWidth / 8)];
-                            List<Double> TempDoubles = new ArrayList<>();
-                            List<Double> mDoubls = new ArrayList<>();
-                            for (int k = 0; k < doubles.length / 8; k++) {
-                                TempDoubles.add(doubles[k]);
-                                if (TempDoubles.size() > 1024) {//Modified 每8秒的数据量为500*8=4000，要画出150*8=1200点
-                                    for (int h = 0; h < TempDoubles.size(); h++) {
-                                        mDoubls.add(TempDoubles.get(h));
-                                        if (h > 0 && h % 5 == 0) {//Modified 每5点插值一次使得8秒数据量达到4800点
-                                            mDoubls.add((TempDoubles.get(h - 1) + TempDoubles.get(h + 1)) / 2);
-                                        }
-                                    }
-                                    for (int l = 0; l < mDoubls.size(); l++) {
-                                        if (l % 4 == 0) {//Modified 然后4倍抽取使得8秒画图点数为1200点
-                                            mDraws.add(mDoubls.get(l));
-                                        }
-                                    }
-
-                                    double[] tt = new double[30];
-                                    for (int c = 0; c < 5; c++) {
-                                        for (int d = 0; d < 30; d++) {
-                                            tt[d] = mDraws.get(d + 30 * c);
-                                        }
-                                        MyDraw(tt);
-                                        start = tt.length + start;
-                                        if (start >= mScreenWidth) {
-                                            start = 0;
-                                        }
-                                    }
-                                    mDraws.clear();
-                                    mDoubls.clear();
-                                    TempDoubles.clear();
-                                }
+                List<Double> mDraws = new ArrayList<>();
+                double[] draws = new double[(mScreenWidth / 8)];
+                List<Double> TempDoubles = new ArrayList<>();
+                List<Double> mDoubls = new ArrayList<>();
+                int mycount = 4000;//这个数字是要65536个doubles里面有用的数据长度
+                for (int k = 0; k < mycount; k++) {
+                    TempDoubles.add(doubles[k]);
+                    if (TempDoubles.size() >= mycount / 8) {//Modified 每8秒的数据量为500*8=4000，要画出150*8=1200点
+                        for (int h = 0; h < TempDoubles.size(); h++) {
+                            mDoubls.add(TempDoubles.get(h));
+                            if (h > 0 && h % 5 == 0) {//Modified 每5点插值一次使得8秒数据量达到4800点
+                                mDoubls.add((TempDoubles.get(h - 1) + TempDoubles.get(h + 1)) / 2);
                             }
                         }
+                        mDoubls.add(TempDoubles.get((mycount / 8) - 1));
+                        for (int l = 0; l < mDoubls.size(); l++) {
+                            if (l % 4 == 0) {//Modified 然后4倍抽取使得8秒画图点数为1200点
+                                mDraws.add(mDoubls.get(l));
+                            }
+                        }
+
+                        double[] tt = new double[30];
+                        for (int c = 0; c < 5; c++) {
+                            for (int d = 0; d < 30; d++) {
+                                tt[d] = mDraws.get(d + 30 * c);
+                            }
+                            MyDraw(tt);
+                            start = tt.length + start;
+                            if (start >= mScreenWidth) {
+                                start = 0;
+                            }
+                        }
+                        mDraws.clear();
+                        mDoubls.clear();
+                        TempDoubles.clear();
                     }
-
-
                 }
-
+                break;
             }
-
-
-            mIsDrawing = false;
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
                 if (bis != null)
                     bis.close();
-                if (fis != null)
-                    fis.close();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
         }
     }
+
+//    private void initReader(String filename) {
+//
+////FileInputStream fileInputStream=new FileInputStream()
+//        this.filename = filename;  //获得用户名
+//        try {
+//            fis = new FileInputStream(this.filename);
+//            bis = new BufferedInputStream(mContext.getResources().openRawResource(R.raw.fmsignal));
+//
+//            this.chunkdescriptor = readString(lenchunkdescriptor);
+//            if (!chunkdescriptor.endsWith("RIFF"))  //0~3检查前四个字节是否为RIFF
+//                throw new IllegalArgumentException("RIFF miss, " + filename + " is not a wave file.");
+//
+//            this.chunksize = readLong();  //4~7代表大小
+//            this.waveflag = readString(lenwaveflag);
+//            if (!waveflag.endsWith("WAVE"))  //8~11检查是不是WAVE这四个字节
+//                throw new IllegalArgumentException("WAVE miss, " + filename + " is not a wave file.");
+//
+//            this.fmtubchunk = readString(lenfmtubchunk);
+//            if (!fmtubchunk.endsWith("fmt "))  //12~15 fmt"" 检查是不是这个
+//                throw new IllegalArgumentException("fmt miss, " + filename + " is not a wave file.");
+//
+//            this.subchunk1size = readLong();  //16~19代表PCM数据
+//            this.audioformat = readInt();  //20~21fmt的头
+//            this.numchannels = readInt();  //22~23单声道还是双声道
+//            this.samplerate = readLong();  //24~27采样率
+//            this.byterate = readLong();  //28~31每秒播放字节数
+//            this.blockalign = readInt();  //32~33采样一次占字节数
+//            this.bitspersample = readInt();  //34~35量化数 8或者16
+//
+//            this.datasubchunk = readString(lendatasubchunk);
+//            if (!datasubchunk.endsWith("data"))  //36~39肯定是data
+//                throw new IllegalArgumentException("data miss, " + filename + " is not a wave file.");
+//            this.subchunk2size = readLong();  //40~43采样数据字节数
+//
+//            this.len = (int) (this.subchunk2size / (this.bitspersample / 8) / this.numchannels);
+//
+//            int length;
+//            byte[] buf = new byte[len * 2];
+//            double[] doubles = new double[65536];//Modified
+//            for (int i = 0; i < this.len; ++i) {
+//                for (int n = 0; n < this.numchannels; ++n) {
+//                    while ((length = bis.read(buf, 0, buf.length)) != -1) {
+//                        short[] shorts = byteArray2ShortArray(buf, buf.length / 2);
+//                        getStringFromNative(shorts, doubles);
+//                        //这里是写文件的方法
+////                        if (!WriteFlag) {
+////                            MyWriteFileMethod(doubles);
+////                        }
+//                        ArrayList<Float> XH = new ArrayList<>();
+//                        for (int q = 0; q < 4000; q++) {
+//                            XH.add((float) doubles[q]);
+//                        }
+//                        xinlvdatas = CaculateXinLv(XH);
+//                        //**********************************************************************//
+//
+//                        //结束
+//
+//                        List<Double> mDraws = new ArrayList<>();
+//                        double[] draws = new double[(mScreenWidth / 8)];
+//                        List<Double> TempDoubles = new ArrayList<>();
+//                        List<Double> mDoubls = new ArrayList<>();
+//                        int mycount = 4000;//这个数字是要65536个doubles里面有用的数据长度
+//                        for (int k = 0; k < mycount; k++) {
+//                            TempDoubles.add(doubles[k]);
+//                            if (TempDoubles.size() >= mycount / 8) {//Modified 每8秒的数据量为500*8=4000，要画出150*8=1200点
+//                                for (int h = 0; h < TempDoubles.size(); h++) {
+//                                    mDoubls.add(TempDoubles.get(h));
+//                                    if (h > 0 && h % 5 == 0) {//Modified 每5点插值一次使得8秒数据量达到4800点
+//                                        mDoubls.add((TempDoubles.get(h - 1) + TempDoubles.get(h + 1)) / 2);
+//                                    }
+//                                }
+//                                mDoubls.add(TempDoubles.get((mycount / 8) - 1));
+//                                for (int l = 0; l < mDoubls.size(); l++) {
+//                                    if (l % 4 == 0) {//Modified 然后4倍抽取使得8秒画图点数为1200点
+//                                        mDraws.add(mDoubls.get(l));
+//                                    }
+//                                }
+//
+//                                double[] tt = new double[30];
+//                                for (int c = 0; c < 5; c++) {
+//                                    for (int d = 0; d < 30; d++) {
+//                                        tt[d] = mDraws.get(d + 30 * c);
+//                                    }
+//                                    MyDraw(tt);
+//                                    start = tt.length + start;
+//                                    if (start >= mScreenWidth) {
+//                                        start = 0;
+//                                    }
+//                                }
+//                                mDraws.clear();
+//                                mDoubls.clear();
+//                                TempDoubles.clear();
+//                            }
+//                        }
+//
+//                    }
+//
+//
+//                }
+//
+//            }
+//
+//
+//            mIsDrawing = false;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (bis != null)
+//                    bis.close();
+//                if (fis != null)
+//                    fis.close();
+//            } catch (Exception e1) {
+//                e1.printStackTrace();
+//            }
+//        }
+//    }
 
     private String readString(int len) {
         byte[] buf = new byte[len];
@@ -491,8 +567,9 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
 
     @Override
     public void run() {
-        String pathName = "/storage/sdcard0/FMECG8s.wav";//FMSignal.wav";//Modified
-        initReader(pathName);
+//        String pathName = "/storage/sdcard0/FMECG8s.wav";//FMSignal.wav";//Modified
+//        initReader(pathName);
+        openFile();
     }
 
     private void MyWriteFileMethod(final double[] doubles) {
@@ -526,6 +603,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
             }).start();
         }
     }
+
     private void updateUI(final int i) {
         mHandler.post(new Runnable() {
             @Override
@@ -557,10 +635,11 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
                         break;
                 }
 
-                xinlv.setText(xinlvdatas[i-1]+"/min");
+                xinlv.setText(xinlvdatas[i - 1] + "/min");
             }
         });
     }
+
     private String getCurrentTime() {
         format = new SimpleDateFormat("HH:mm:ss");
         date = new Date(System.currentTimeMillis());
@@ -574,7 +653,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
             mFloats[i] = datas.get(i);
         }
 
-        mDaoshu[0] = mDaoshu[1] = mDaoshu[datas.size()-1] = mDaoshu[datas.size()-2] = 0;
+        mDaoshu[0] = mDaoshu[1] = mDaoshu[datas.size() - 1] = mDaoshu[datas.size() - 2] = 0;
         for (int i = 2; i < mFloats.length - 2; i++) {
             mDaoshu[i] = mFloats[i + 1] - mFloats[i - 1] + 2 * (mFloats[i + 2] - mFloats[i - 2]);
         }
