@@ -1,0 +1,33 @@
+{
+  "buildFiles": [
+    "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\Android.mk",
+    "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\Application.mk"
+  ],
+  "cleanCommands": [
+    "E:\\android-ndk-r11b-windows-x86_64\\android-ndk-r11b\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\Application.mk APP_ABI\u003dx86_64 NDK_ALL_ABIS\u003dx86_64 NDEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\.externalNativeBuild\\ndkBuild\\debug\\obj NDK_LIBS_OUT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\build\\intermediates\\ndkBuild\\debug\\lib clean"
+  ],
+  "libraries": {
+    "myNativeLib-debug-x86_64": {
+      "buildCommand": "E:\\android-ndk-r11b-windows-x86_64\\android-ndk-r11b\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\Application.mk APP_ABI\u003dx86_64 NDK_ALL_ABIS\u003dx86_64 NDEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\.externalNativeBuild\\ndkBuild\\debug\\obj NDK_LIBS_OUT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\build\\intermediates\\ndkBuild\\debug\\lib C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\.externalNativeBuild\\ndkBuild\\debug\\obj/local/x86_64/libmyNativeLib.so",
+      "toolchain": "toolchain-x86_64",
+      "abi": "x86_64",
+      "artifactName": "myNativeLib",
+      "files": [
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\mail.c",
+          "flags": "\"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-O2\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fstrict-aliasing\" \"-funswitch-loops\" \"-finline-limit\u003d300\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/src/main/jni\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-21/arch-x86_64/usr/include\""
+        }
+      ],
+      "output": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\.externalNativeBuild\\ndkBuild\\debug\\obj\\local\\x86_64\\libmyNativeLib.so"
+    }
+  },
+  "toolchains": {
+    "toolchain-x86_64": {
+      "cCompilerExecutable": "E:\\android-ndk-r11b-windows-x86_64\\android-ndk-r11b\\build\\..\\toolchains\\x86_64-4.9\\prebuilt\\windows-x86_64\\bin\\x86_64-linux-android-gcc"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": []
+}

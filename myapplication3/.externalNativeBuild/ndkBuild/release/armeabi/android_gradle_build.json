@@ -1,0 +1,91 @@
+{
+  "buildFiles": [
+    "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\build\\intermediates\\ndk\\debug\\Android.mk"
+  ],
+  "cleanCommands": [
+    "E:\\android-ndk-r11b-windows-x86_64\\android-ndk-r11b\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\build\\intermediates\\ndk\\debug\\Android.mk APP_ABI\u003darmeabi NDK_ALL_ABIS\u003darmeabi NDEBUG\u003d0 APP_PLATFORM\u003dandroid-16 NDK_OUT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\.externalNativeBuild\\ndkBuild\\release\\obj NDK_LIBS_OUT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\build\\intermediates\\ndkBuild\\release\\lib clean"
+  ],
+  "libraries": {
+    "myNativeLib-release-armeabi": {
+      "buildCommand": "E:\\android-ndk-r11b-windows-x86_64\\android-ndk-r11b\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\build\\intermediates\\ndk\\debug\\Android.mk APP_ABI\u003darmeabi NDK_ALL_ABIS\u003darmeabi NDEBUG\u003d0 APP_PLATFORM\u003dandroid-16 NDK_OUT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\.externalNativeBuild\\ndkBuild\\release\\obj NDK_LIBS_OUT\u003dC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\build\\intermediates\\ndkBuild\\release\\lib C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\.externalNativeBuild\\ndkBuild\\release\\obj/local/armeabi/libmyNativeLib.so",
+      "toolchain": "toolchain-armeabi",
+      "abi": "armeabi",
+      "artifactName": "myNativeLib",
+      "files": [
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\Decimate.cpp",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-fno-exceptions\" \"-fno-rtti\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\FIRFilter.cpp",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-fno-exceptions\" \"-fno-rtti\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\FMdemodHilber.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\FMdemodHilber_emxAPI.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\FMdemodHilber_emxutil.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\FMdemodHilber_initialize.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\FMdemodHilber_terminate.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\IIRFilterCas.cpp",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-fno-exceptions\" \"-fno-rtti\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\interp1.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\ipermute.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\mail.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\rtGetInf.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\rtGetNaN.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\rt_nonfinite.c",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        },
+        {
+          "src": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\\sgFilter.cpp",
+          "flags": "\"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-no-canonical-prefixes\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-fno-exceptions\" \"-fno-rtti\" \"-mthumb\" \"-Os\" \"-g\" \"-DNDEBUG\" \"-fomit-frame-pointer\" \"-fno-strict-aliasing\" \"-finline-limit\u003d64\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\main\\jni\" \"-IC:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\src\\debug\\jni\" \"-IE:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../sources/cxx-stl/system/include\" \"-IC:/Users/mr.cheng/Desktop/JNIsetting/myapplication3/build/intermediates/ndk/debug\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-isystem\" \"E:/android-ndk-r11b-windows-x86_64/android-ndk-r11b/build//../platforms/android-16/arch-arm/usr/include\""
+        }
+      ],
+      "output": "C:\\Users\\mr.cheng\\Desktop\\JNIsetting\\myapplication3\\.externalNativeBuild\\ndkBuild\\release\\obj\\local\\armeabi\\libmyNativeLib.so"
+    }
+  },
+  "toolchains": {
+    "toolchain-armeabi": {
+      "cCompilerExecutable": "E:\\android-ndk-r11b-windows-x86_64\\android-ndk-r11b\\build\\..\\toolchains\\arm-linux-androideabi-4.9\\prebuilt\\windows-x86_64\\bin\\arm-linux-androideabi-gcc",
+      "cppCompilerExecutable": "E:\\android-ndk-r11b-windows-x86_64\\android-ndk-r11b\\build\\..\\toolchains\\arm-linux-androideabi-4.9\\prebuilt\\windows-x86_64\\bin\\arm-linux-androideabi-g++"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}
