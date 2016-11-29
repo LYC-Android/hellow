@@ -3,23 +3,29 @@
 
 #include <stdlib.h>
 #include <string.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-struct matrix_instance//¾ØÕó½á¹¹Ìå
+
+#define d 1
+#define N 15
+struct matrix_instance//ï¿½ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½
 {
 	int numRows;     /**< number of rows of the matrix.     */
 	int numCols;     /**< number of columns of the matrix.  */
 	double *pData;     /**< points to the data of the matrix. */
 };
-//struct matrix_instance matrix_instance;
-//extern void mat_mul(const matrix_instance *a, const matrix_instance *b, matrix_instance *c);//¾ØÕóÏà³Ë£¬cÎªÊä³ö
 
-extern void mat_trans(struct matrix_instance *pSrc, struct matrix_instance *pDst);//¾ØÕó×ªÖÃ
+extern void mat_mul(struct matrix_instance *a, struct matrix_instance *b, struct matrix_instance *c);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½cÎªï¿½ï¿½ï¿½
 
-extern double dot_prod(double * pSrcA, double * pSrcB, int blockSize);//ÏòÁ¿µã»ý£¬blockSizeÎªÏòÁ¿³¤¶È
+extern void mat_trans(struct matrix_instance *pSrc, struct matrix_instance *pDst);//ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
 
-extern void sgFilter(struct matrix_instance *x, const struct matrix_instance *B);//SGÂË²¨Æ÷
+extern double dot_prod(double * pSrcA, double * pSrcB, int blockSize);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½blockSizeÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+extern void sgFilter(struct matrix_instance *x, struct matrix_instance *B);//SGï¿½Ë²ï¿½ï¿½ï¿½
+
+
 #ifdef __cplusplus
 }
 #endif

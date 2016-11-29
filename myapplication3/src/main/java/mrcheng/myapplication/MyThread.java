@@ -369,7 +369,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
 
             int length;
             byte[] buf = new byte[len * 2];
-            double[] doubles = new double[65536];
+            double[] doubles = new double[65536];//Modified
             for (int i = 0; i < this.len; ++i) {
                 for (int n = 0; n < this.numchannels; ++n) {
                     while ((length = bis.read(buf, 0, buf.length)) != -1) {
@@ -395,15 +395,15 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
                             List<Double> mDoubls = new ArrayList<>();
                             for (int k = 0; k < doubles.length / 8; k++) {
                                 TempDoubles.add(doubles[k]);
-                                if (TempDoubles.size() > 1024) {
+                                if (TempDoubles.size() > 1024) {//Modified 每8秒的数据量为500*8=4000，要画出150*8=1200点
                                     for (int h = 0; h < TempDoubles.size(); h++) {
                                         mDoubls.add(TempDoubles.get(h));
-                                        if (h > 0 && h % 38 == 0) {
+                                        if (h > 0 && h % 5 == 0) {//Modified 每5点插值一次使得8秒数据量达到4800点
                                             mDoubls.add((TempDoubles.get(h - 1) + TempDoubles.get(h + 1)) / 2);
                                         }
                                     }
                                     for (int l = 0; l < mDoubls.size(); l++) {
-                                        if (l % 7 == 0) {
+                                        if (l % 4 == 0) {//Modified 然后4倍抽取使得8秒画图点数为1200点
                                             mDraws.add(mDoubls.get(l));
                                         }
                                     }
@@ -491,7 +491,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
 
     @Override
     public void run() {
-        String pathName = "/storage/sdcard0/FMECG8s.wav";//FMSignal.wav";
+        String pathName = "/storage/sdcard0/FMECG8s.wav";//FMSignal.wav";//Modified
         initReader(pathName);
     }
 
@@ -507,7 +507,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
                         File file = new File(path);
                         if (file.exists()) file.delete();
                         writer = new BufferedWriter(new FileWriter(file));
-                        for (int i = 0; i < 8192; i++) {
+                        for (int i = 0; i < 8192; i++) {//Modified
                             writer.write(doubles[i] + "\r\n");
                             writer.flush();
                         }
@@ -556,6 +556,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
                         eight.setText(getCurrentTime());
                         break;
                 }
+
                 xinlv.setText(xinlvdatas[i-1]+"/min");
             }
         });
@@ -598,7 +599,7 @@ public class MyThread extends SurfaceView implements Runnable,SurfaceHolder.Call
             result1[i] = dianshu.get(i + 1) - dianshu.get(i);
         }
 
-        int fs = 1024;
+        int fs = 500;
         int[] result2 = new int[result1.length];
         for (int i = 0; i < result1.length; i++) {
             result2[i] = (60 * fs) / result1[i];

@@ -1,13 +1,13 @@
 #ifndef __FIRFILTER_H__
 #define __FIRFILTER_H__
 #include <string.h>
-#include "fdacoefsFIR_LP.h"
 #include "fdacoefsFIR_BP.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-	/**
+#define BLOCK_SIZE 1024
+#define blockSize3 1000//解调前的带通滤波器
+/**
 	* @brief Instance structure for the FIR filter.
 	*/
 	typedef struct

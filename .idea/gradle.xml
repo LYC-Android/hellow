@@ -10,8 +10,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/Client" />
-            <option value="$PROJECT_DIR$/jiemian" />
             <option value="$PROJECT_DIR$/myapplication3" />
           </set>
         </option>
