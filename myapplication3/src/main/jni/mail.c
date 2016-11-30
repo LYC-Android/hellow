@@ -13,6 +13,8 @@
 
 // edited by John on 2016/11/26
 
+// edited by John on 2016/11/30
+
 //#include "mail.h"
 #include <jni.h>
 #include <android/log.h>
@@ -40,14 +42,14 @@ extern "C" {
 /******************Modulation Parameters****************************************/
 const int fc = 1000;//载波频率
 const int kf = 300;//调频系数
-const int fs = 8000;//采样率
+const int fs = 8000;//采样�?
 const int samptime = 8;//sample time
-const int m = 16;//2的幂，用于指定解调后的数据长度
+const int m = 16;//2的幂，用于指定解调后的数据长�?
 const double Vpp = 2;//ADC full amplitude
 const double gain = 1;//gain of circuit
 
 /******************Resample & FIR Filter****************************************/
-//全变量要定义成常量
+//全变量要定义成常�?
 const int M = 2048;//插值倍数和抽取倍数
 const int L = 125;//总插值倍数
 
@@ -63,7 +65,7 @@ const double* pIIRCoeff[KCAS*KORD * 2] = {
 };
 
 /////////////////////////////////////////////////////////////
-//主函数
+//主函�?
 JNIEXPORT void JNICALL Java_mrcheng_myapplication_MyThread_getStringFromNative
 
         (JNIEnv *env, jobject jObj,jshortArray jshortArray1,jdoubleArray jdoubleArray1)
@@ -79,14 +81,14 @@ JNIEXPORT void JNICALL Java_mrcheng_myapplication_MyThread_getStringFromNative
     emxArray_real_T *X;
     emxArray_real_T *Y;
     X = emxCreate_real_T(1, samples);
-    Y = emxCreate_real_T(1, pow(2.0, m));//Y是解调后的数据结构
+    Y = emxCreate_real_T(1, pow(2.0, m));//Y是解调后的数据结�?
 
     int i;
     for ( i = 0; i < myLength; i++) {
         X->data[i]=jshort1[i]/32768.0;
     }
 /********************FIRfilter_BP***********************************************/
-    int numBlocks3 = samples / blockSize3;//这里必须整除，否则画图出错
+    int numBlocks3 = samples / blockSize3;//这里必须整除，否则画图出�?
     static double firState3[blockSize3 + 20 - 1];
     fir_instance S3;
     fir_init(&S3, bp_BL, (double*)bp_B, firState3, blockSize3);
@@ -97,9 +99,9 @@ JNIEXPORT void JNICALL Java_mrcheng_myapplication_MyThread_getStringFromNative
         fir_filter(&S3, X-> data+ (i * blockSize3), pTemp1 + (i * blockSize3), blockSize3);
     }
 
-    for (i = 0; i < X->size[1]; i++)//结构X中的成员size数组，第一个元素为矩阵空间的行数，第二个对应列数
+    for (i = 0; i < X->size[1]; i++)//结构X中的成员size数组，第一个元素为矩阵空间的行数，第二个对应列�?
     {
-        X->data[i] = pTemp1[i];//将double型数据赋值给X结构中的double型数组
+        X->data[i] = pTemp1[i];//将double型数据赋值给X结构中的double型数�?
     }
     free(pTemp1);
 /********************FM Demodulation********************************************/
@@ -109,14 +111,14 @@ JNIEXPORT void JNICALL Java_mrcheng_myapplication_MyThread_getStringFromNative
     int length2 = Y->size[1];//取得解调后数据的长度
 /****************************IIR Filter*****************************************/
     double *pTemp2 = (double*)malloc(sizeof(double)*length2);
-
-    for (i = 0; i < length2; i++)//解调后的低通滤波，同时按时间反转数据
+    int j = length2-1;
+    for (i = 0; i < length2; i++)//解调后的低通滤波，同时按时间反转数�?
     {
-        pTemp2[i] = iir_biquad(Y->data[i], pIIRCoeff);//Lowpass filter
+        pTemp2[j--] = iir_biquad(Y->data[i], pIIRCoeff);//Low pass filtered data with inverted over time
     }
     emxDestroyArray_real_T(Y);
 /*****************************Resample******************************************/
-    int fs2 = length2 / samptime*L / M;//转换为500Hz采样率
+    int fs2 = length2 / samptime*L / M;//转换�?500Hz采样�?
     int samples2 = fs2*samptime;
 
 //每一级FIR滤波器的状态变量和结构体初始化
@@ -139,20 +141,19 @@ JNIEXPORT void JNICALL Java_mrcheng_myapplication_MyThread_getStringFromNative
     }
     free(pTemp2);
 /*IIR notch filter***************************************************************/
-    static double w[Delay + 1];//陷波器的状态变量
+    static double w[Delay + 1];//陷波器的状态变�?
     for (i = 0; i < samples2; i++)
     {
         pTemp3[i] = Notch50Hz(pTemp3[i], w);//Notch Filter
     }
-
 /**********************Savitzky-Golay Filter*************************************/
 
-    struct matrix_instance instance1={ 1, samples2, pTemp3};//SG滤波器的初始化
+    struct matrix_instance instance1={ 1, samples2, pTemp3};//SG滤波器的初始�?
     struct matrix_instance instance2={ N, N, &Coeff1[0][0] };
     sgFilter(&instance1, &instance2);
-    int j = samples2-1;
-    for (i = 0; i <samples2; i++) {//某些DSP流程节点上的乘除法计算有可能会导致计算溢出
-        jdouble1[j--]=pTemp3[i]*32768.0*Re / gain;//datas inverted over time
+
+    for (i = 0; i <samples2; i++) {//某些DSP流程节点上的乘除法计算有可能会导致计算溢�?
+        jdouble1[i]=pTemp3[i]*32768.0*Re / gain;
 //        if(i%100==0)
 //            LOGE("%e\n",jdouble1[i]);
     }
