@@ -23,3 +23,9 @@
 1.更改好必须读取本地文件的问题，现在可以直接读取res/raw/fmsignal.wav文件进行画图。
 2.已经更改好画图的各种细节问题。
 3.心率问题，可能是读取的本地文件有问题。好像又好了，当我读取res/raw/fmsignal.wav的时候
+
+/****************Mr.Cheng 11/28/2016***********************/
+/*Version: JNI.1.2.2.161130_Mr.Cheng
+1.已经集成MPAndroidChart，现在看到的Activity是TestActivity.java，读取JNI的是ReadFile.java
+2.默认画3次之后就会停止绘图
+3.画一次点的时间为8000/1200毫秒

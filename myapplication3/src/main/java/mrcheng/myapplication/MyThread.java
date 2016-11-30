@@ -341,7 +341,10 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
             double[] doubles = new double[65536];//Modified
             while ((length = bis.read(buf, 0, buf.length)) != -1) {
                 short[] shorts = byteArray2ShortArray(buf, buf.length / 2);
+                long ssss=System.currentTimeMillis();
                 getStringFromNative(shorts, doubles);
+                long eeee=System.currentTimeMillis();
+                Log.d(TAG, eeee-ssss+"");
                 //这里是写文件的方法
                 //                        if (!WriteFlag) {
                 //                            MyWriteFileMethod(doubles);

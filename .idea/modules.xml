@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JNI.1.2.0.161127_Mr.Cheng.iml" filepath="$PROJECT_DIR$/JNI.1.2.0.161127_Mr.Cheng.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hellow.iml" filepath="$PROJECT_DIR$/hellow.iml" />
       <module fileurl="file://$PROJECT_DIR$/myapplication3/myapplication3.iml" filepath="$PROJECT_DIR$/myapplication3/myapplication3.iml" />
     </modules>
   </component>
