@@ -113,7 +113,7 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
         mHolder.addCallback(this);
         mPaint = new Paint();
         mPaint.setColor(Color.BLACK);// 画笔为绿色
-        mPaint.setStrokeWidth(3);// 设置画笔粗细
+        mPaint.setStrokeWidth(5);// 设置画笔粗细
         mPaint.setAntiAlias(true);//设置上抗锯齿，自己加的不知道有没有必要咯
         WindowManager wm = (WindowManager) getContext()
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -148,67 +148,66 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
 
     }
 
-//    private AudioRecord recorder;
-//
-//    @Override
-////    这是用来录音然后显示数据的run方法
-//    public void run() {
-//        while (true) {
-//            short[] myRecoed = new short[64000];
-//            recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
-//                    8000, AudioFormat.CHANNEL_CONFIGURATION_MONO,
-//                    AudioFormat.ENCODING_PCM_16BIT,
-//                    128000);
-//            recorder.startRecording();//开始录音
-//            recorder.read(myRecoed, 0, myRecoed.length);
-//            recorder.stop();
-//            recorder.release();
-//            double[] doubles = new double[65536];
-//            getStringFromNative(myRecoed, doubles);
-//            MyWriteFileMethod(doubles);
-//            List<Double> mDraws = new ArrayList<>();
-//            List<Double> TempDoubles = new ArrayList<>();
-//            List<Double> draws = new ArrayList<>();
-//            for (int k = 0; k < doubles.length / 8; k++) {
-//                mDraws.add(doubles[k]);
-//                if (mDraws.size() >= 1024) {
-//                    for (int h = 0; h < mDraws.size(); h++) {
-//                        TempDoubles.add(mDraws.get(h));
-//                        if (h > 0 && h % 38 == 0) {
-//                            TempDoubles.add((mDraws.get(h - 1) + mDraws.get(h + 1)) / 2);
-//                        }
-//                    }
-//                    for (int l = 0; l < TempDoubles.size(); l++) {
-//                        if (l % 7 == 0) {
-//                            draws.add(TempDoubles.get(l));
-//                        }
-//                    }
-//
-//                    double[] tt = new double[30];
-//                    for (int c = 0; c < 5; c++) {
-//                        for (int d = 0; d < 30; d++) {
-//                            tt[d] = draws.get(d + 30 * c);
-//                        }
-//                        MyDraw(tt);
-//                        start = tt.length + start;
-//                        if (start >= mScreenWidth) {
-//                            start = 0;
-//                        }
-//                    }
-//                    draws.clear();
-//                    TempDoubles.clear();
-//                    mDraws.clear();
-//                }
-//
-//            }
-//            mHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Toast.makeText(mContext, "已经画完一次", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        }
-//    }
+    private AudioRecord recorder;
+
+    @Override
+//    这是用来录音然后显示数据的run方法
+    public void run() {
+        while (true) {
+            short[] myRecoed = new short[64000];
+            recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
+                    8000, AudioFormat.CHANNEL_CONFIGURATION_MONO,
+                    AudioFormat.ENCODING_PCM_16BIT,
+                    128000);
+            recorder.startRecording();//开始录音
+            recorder.read(myRecoed, 0, myRecoed.length);
+            recorder.stop();
+            recorder.release();
+            double[] doubles = new double[65536];
+            getStringFromNative(myRecoed, doubles);
+            List<Double> mDraws = new ArrayList<>();
+            List<Double> TempDoubles = new ArrayList<>();
+            List<Double> mDoubls = new ArrayList<>();
+            int mycount = 4000;//这个数字是要65536个doubles里面有用的数据长度
+            for (int k = 0; k < mycount; k++) {
+                TempDoubles.add(doubles[k]);
+                if (TempDoubles.size() >= mycount / 8) {//Modified 每8秒的数据量为500*8=4000，要画出150*8=1200点
+                    for (int h = 0; h < TempDoubles.size(); h++) {
+                        mDoubls.add(TempDoubles.get(h));
+                        if (h > 0 && h % 5 == 0) {//Modified 每5点插值一次使得8秒数据量达到4800点
+                            mDoubls.add((TempDoubles.get(h - 1) + TempDoubles.get(h + 1)) / 2);
+                        }
+                    }
+                    mDoubls.add(TempDoubles.get((mycount / 8) - 1));
+                    for (int l = 0; l < mDoubls.size(); l++) {
+                        if (l % 4 == 0) {//Modified 然后4倍抽取使得8秒画图点数为1200点
+                            mDraws.add(mDoubls.get(l));
+                        }
+                    }
+
+                    double[] tt = new double[30];
+                    for (int c = 0; c < 5; c++) {
+                        for (int d = 0; d < 30; d++) {
+                            tt[d] = mDraws.get(d + 30 * c);
+                        }
+                        MyDraw(tt);
+                        start = tt.length + start;
+                        if (start >= mScreenWidth) {
+                            start = 0;
+                        }
+                    }
+                    mDraws.clear();
+                    mDoubls.clear();
+                    TempDoubles.clear();
+                }
+            }
+
+        }
+
+
+
+}
+
 ////
 ////
 ////
@@ -341,10 +340,10 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
             double[] doubles = new double[65536];//Modified
             while ((length = bis.read(buf, 0, buf.length)) != -1) {
                 short[] shorts = byteArray2ShortArray(buf, buf.length / 2);
-                long ssss=System.currentTimeMillis();
+                long ssss = System.currentTimeMillis();
                 getStringFromNative(shorts, doubles);
-                long eeee=System.currentTimeMillis();
-                Log.d(TAG, eeee-ssss+"");
+                long eeee = System.currentTimeMillis();
+                Log.d(TAG, eeee - ssss + "");
                 //这里是写文件的方法
                 //                        if (!WriteFlag) {
                 //                            MyWriteFileMethod(doubles);
@@ -568,12 +567,12 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
         return res;
     }
 
-    @Override
-    public void run() {
-//        String pathName = "/storage/sdcard0/FMECG8s.wav";//FMSignal.wav";//Modified
-//        initReader(pathName);
-        openFile();
-    }
+//    @Override
+//    public void run() {
+////        String pathName = "/storage/sdcard0/FMECG8s.wav";//FMSignal.wav";//Modified
+////        initReader(pathName);
+//        openFile();
+//    }
 
     private void MyWriteFileMethod(final double[] doubles) {
         if (!WriteFlag) {
