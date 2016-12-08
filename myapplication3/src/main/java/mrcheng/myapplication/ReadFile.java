@@ -69,11 +69,11 @@ public class ReadFile {
                 //                            MyWriteFileMethod(doubles);
                 //                        }
                 //心率部分方法
-                ArrayList<Float> XH = new ArrayList<>();
-                for (int q = 0; q < 4000; q++) {
-                    XH.add((float) doubles[q]);
-                }
-                xinlvdatas = CaculateXinLv(XH);
+//                ArrayList<Float> XH = new ArrayList<>();
+//                for (int q = 0; q < 4000; q++) {
+//                    XH.add((float) doubles[q]);
+//                }
+//                xinlvdatas = CaculateXinLv(XH);
                 //**********************************************************************//
 
                 //结束
