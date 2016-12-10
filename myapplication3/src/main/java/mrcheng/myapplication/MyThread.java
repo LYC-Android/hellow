@@ -88,6 +88,8 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
     private Caculate caculate;
     private int N0;
     private float N1;
+    private int M;
+    private int addNum;
     private Handler mHandler;
 
     public native void getStringFromNative(short[] shorts, double[] doubles);
@@ -123,6 +125,8 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
         caculate = new Caculate(xdpi, mScreenWidth, mScreenHeight);
         N0 = caculate.getN0();
         N1 = caculate.getN1();
+        M = caculate.getM();
+        addNum = caculate.getAddNum();
     }
 
     public short[] byteArray2ShortArray(byte[] data, int items) {
@@ -413,11 +417,11 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
 //FileInputStream fileInputStream=new FileInputStream()
         this.filename = filename;  //获得用户名
         try {
-            fis = new FileInputStream(this.filename);
+           // fis = new FileInputStream(this.filename);
 
             //***************放想要读的文件到这里********************
 
-            bis = new BufferedInputStream(mContext.getResources().openRawResource(R.raw.fmsignal));
+            bis = new BufferedInputStream(mContext.getResources().openRawResource(R.raw.fmecg8s));//fmsignal,fmsine8s
 
             this.chunkdescriptor = readString(lenchunkdescriptor);
             if (!chunkdescriptor.endsWith("RIFF"))  //0~3检查前四个字节是否为RIFF
@@ -454,8 +458,21 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
                 for (int n = 0; n < this.numchannels; ++n) {
                     while ((length = bis.read(buf, 0, buf.length)) != -1) {
                         short[] shorts = byteArray2ShortArray(buf, buf.length / 2);
-                        getStringFromNative(shorts, doubles);
-
+                        long t1=System.currentTimeMillis();
+                        getStringFromNative(shorts, doubles);//doubles数组数值单位为伏V
+                        long t2=System.currentTimeMillis();
+                        Log.d(TAG,t2-t1+"ms!! ");
+                        /*Added for Testing*/
+                        int mycount = 4000;
+                        for (int q=0; q<mycount; q++)
+                        {
+                            doubles[q]=doubles[q]*1000;//将doubles数组数值单位化为毫伏mV
+//                            if(q%100==0)
+//                                doubles[q]=1.0;
+//                            if(doubles[q]<0)
+//                                doubles[q]=0;
+                        }
+                        /*End*/
 //                        ArrayList<Float> XH = new ArrayList<>();
 //                        for (int q = 0; q < 4000; q++) {
 //                            XH.add((float) doubles[q]);
@@ -469,22 +486,25 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
                         double[] draws = new double[(mScreenWidth / 8)];
                         List<Double> TempDoubles = new ArrayList<>();
                         List<Double> mDoubls = new ArrayList<>();
-                        int mycount = 4000;//这个数字是要65536个doubles里面有用的数据长度
+//                        int mycount = 4000;
                         while (true) {
                             for (int k = 0; k < mycount; k++) {
                                 TempDoubles.add(doubles[k]);
-                                if (TempDoubles.size() >= mycount / 8) {//Modified 每8秒的数据量为500*8=4000，要画出150*8=1200点
+                                if (TempDoubles.size() >= mycount / 8) {//Modified
                                     for (int h = 0; h < TempDoubles.size(); h++) {
                                         mDoubls.add(TempDoubles.get(h));
-                                        if (h > 0 && h % 5 == 0) {//Modified 每5点插值一次使得8秒数据量达到4800点
+                                        /**/
+
+                                        /**/
+                                        if (h > 0 && h % addNum == 0) {//Modified 每隔addNum个插值一次，经验值是5
                                             mDoubls.add((TempDoubles.get(h - 1) + TempDoubles.get(h + 1)) / 2);
                                         }
                                     }
                                     mDoubls.add(TempDoubles.get((mycount / 8) - 1));
                                     for (int l = 0; l < mDoubls.size(); l++) {
-                                        if (l % 4 == 0) {//Modified 然后4倍抽取使得8秒画图点数为1200点
+                                        if (l % M == 0) {//Modified  抽取M倍，经验值是4
                                             mDraws.add(mDoubls.get(l));
-                                        }
+                                       }
                                     }
 
                                     double[] tt = new double[30];

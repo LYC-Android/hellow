@@ -57,7 +57,7 @@ public class ReadFile {
 
     private void openFile() {
         try {
-            bis = new BufferedInputStream(mContext.getResources().openRawResource(R.raw.fmsignal));
+            bis = new BufferedInputStream(mContext.getResources().openRawResource(R.raw.fmsine8s));//fmsignal
             int length;
             byte[] buf = new byte[64000 * 2];
             double[] doubles = new double[65536];//Modified
