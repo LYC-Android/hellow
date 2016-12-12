@@ -145,7 +145,7 @@ JNIEXPORT void JNICALL Java_mrcheng_myapplication_MyThread_getStringFromNative
 
     struct matrix_instance instance1={ 1, samples2, pTemp2};//SG滤波器的初始�?
     struct matrix_instance instance2={ N, N, &Coeff1[0][0] };
-    //sgFilter(&instance1, &instance2);
+    sgFilter(&instance1, &instance2);
 
     /************************IIR notch filter****************************************/
     static double w[Delay + 1];

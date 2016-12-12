@@ -31,11 +31,9 @@ public class TestActivity extends Activity {
     TextView mXinlv;
     private Thread thread;
     private int index;
+    private int counter;
     private static final String TAG = "TestActivity";
 
-    static {
-        System.loadLibrary("myNativeLib");
-    }
 
     private ReadFile readFile;
     private XAxis xl;
@@ -82,7 +80,7 @@ public class TestActivity extends Activity {
         xl = mChart.getXAxis();
         xl.setDrawGridLines(false);
         xl.setGranularity(1f);
-        xl.setLabelCount(8, true);
+        xl.setLabelCount(9, true);
         xl.setTextSize(16);
         xl.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         xl.setAvoidFirstLastClipping(true);
@@ -90,7 +88,8 @@ public class TestActivity extends Activity {
         //反转轴值
         leftAxis.setInverted(true);
         leftAxis.setEnabled(false);
-
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setAxisMaximum(752f);
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setEnabled(false);
         feedMultiple();
@@ -115,8 +114,9 @@ public class TestActivity extends Activity {
 
             @Override
             public void run() {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 1; i++) {
                     index = 0;
+                    counter=0;
                     for (int j = 0; j < readFile.getResult().size(); j++) {
                         runOnUiThread(runnable);
                         try {
@@ -154,11 +154,22 @@ public class TestActivity extends Activity {
         LineData data = mChart.getData();
         if (data != null) {
             ILineDataSet set = data.getDataSetByIndex(0);
+            ILineDataSet set1 = data.getDataSetByIndex(1);
             if (set == null) {
                 set = createSet();
                 data.addDataSet(set);
             }
+            if (set1 == null) {
+                set1 = createSe1t();
+                data.addDataSet(set1);
+            }
             data.addEntry(new Entry(set.getEntryCount(), (float) (readFile.getResult().get(index) + 0f)), 0);
+            if (counter<readFile.getResultX().size()) {
+                if (set.getEntryCount() == readFile.getResultX().get(counter)) {
+                    counter++;
+                    data.addEntry(new Entry(set.getEntryCount()-1,(float) (readFile.getResult().get(index) + 0f)),1);
+                }
+            }
             data.notifyDataChanged();
             mChart.notifyDataSetChanged();
             mChart.setVisibleXRangeMaximum(1200);
@@ -192,5 +203,15 @@ public class TestActivity extends Activity {
         return set;
     }
 
-
+    private LineDataSet createSe1t() {
+        LineDataSet set = new LineDataSet(null, null);
+        set.setDrawCircleHole(false);
+        set.setDrawHighlightIndicators(false);
+        set.setLineWidth(0.2f);
+        set.setCircleColor(Color.RED);
+        set.setCircleRadius(4f);
+        set.setDrawValues(false);
+        set.setColor(Color.WHITE);
+        return set;
+    }
 }

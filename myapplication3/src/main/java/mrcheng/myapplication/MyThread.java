@@ -85,10 +85,11 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
     }
 
     private float xdpi;
-    private Caculate caculate;
+    private Calculate calculate;
     private int N0;
     private float N1;
     private int M;
+    private int Dotspers;
     private int addNum;
     private Handler mHandler;
 
@@ -122,11 +123,12 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
         mScreenWidth = wm.getDefaultDisplay().getWidth();
         mScreenHeight = wm.getDefaultDisplay().getHeight();
         xdpi = getResources().getDisplayMetrics().xdpi;
-        caculate = new Caculate(xdpi, mScreenWidth, mScreenHeight);
-        N0 = caculate.getN0();
-        N1 = caculate.getN1();
-        M = caculate.getM();
-        addNum = caculate.getAddNum();
+        calculate = new Calculate(xdpi, mScreenWidth, mScreenHeight);
+        N0 = calculate.getN0();
+        N1 = calculate.getN1();
+        M = calculate.getM();
+        Dotspers = calculate.getDotspers();
+        addNum = calculate.getAddNum();
     }
 
     public short[] byteArray2ShortArray(byte[] data, int items) {
@@ -356,7 +358,7 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
 //                for (int q = 0; q < 4000; q++) {
 //                    XH.add((float) doubles[q]);
 //                }
-//                xinlvdatas = CaculateXinLv(XH);
+//                xinlvdatas = CalculateXinLv(XH);
 //                //**********************************************************************//
 //
 //                //结束
@@ -477,7 +479,7 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
 //                        for (int q = 0; q < 4000; q++) {
 //                            XH.add((float) doubles[q]);
 //                        }
-//                        xinlvdatas = CaculateXinLv(XH);
+//                        xinlvdatas = CalculateXinLv(XH);
                         //**********************************************************************//
 
                         //结束
@@ -486,7 +488,7 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
                         double[] draws = new double[(mScreenWidth / 8)];
                         List<Double> TempDoubles = new ArrayList<>();
                         List<Double> mDoubls = new ArrayList<>();
-//                        int mycount = 4000;
+
                         while (true) {
                             for (int k = 0; k < mycount; k++) {
                                 TempDoubles.add(doubles[k]);
@@ -506,18 +508,53 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
                                             mDraws.add(mDoubls.get(l));
                                        }
                                     }
-
-                                    double[] tt = new double[30];
-                                    for (int c = 0; c < 5; c++) {
-                                        for (int d = 0; d < 30; d++) {
-                                            tt[d] = mDraws.get(d + 30 * c);
+                                    /*Added*///该简单算法只能算作一种补救的方法，权宜之计罢了
+                                    int numperr=30;//每个小循环画出的点数
+                                    int num=Dotspers%numperr;//求出每秒数据的剩余未画出点数
+                                    double[] tt = new double[numperr];
+                                    int c;//大循环次数
+                                    if(num==0){
+                                        for ( c = 0; c < Dotspers/numperr; c++) {//画出1秒内的点数，不包含剩余未画出点数
+                                            for (int d = 0; d < numperr; d++) {
+                                                tt[d] = mDraws.get(d + numperr * c);
+                                            }
+                                            MyDraw(tt);
+                                            start = tt.length + start;
+                                            if (start >= mScreenWidth) {
+                                                start = 0;
+                                            }
                                         }
-                                        MyDraw(tt);
+                                    }
+                                    else
+                                    {
+                                        for ( c = 0; c < Dotspers/numperr; c++) {//画出1秒内的点数，不包含剩余未画出点数
+                                            for (int d = 0; d < numperr; d++) {
+                                                tt[d] = mDraws.get(d + numperr * c);
+                                            }
+                                            MyDraw(tt);
+                                            start = tt.length + start;
+                                            if (start >= mScreenWidth) {
+                                                start = 0;
+                                            }
+                                        }
+                                        for (int d = 0; d < num; d++) {
+                                            tt[d] = mDraws.get(d + numperr * c);//填充剩余未画出点数
+                                            if(num==(d+1))
+                                            {
+                                                for (int d2 = 0; d2 < numperr-num; d2++) {//在后面填充零使得tt数组长度保持为numperr
+                                                    tt[d+d2] = 0;
+                                                }
+                                                break;
+                                            }
+                                        }
+                                        MyDraw(tt);//画出剩余未画出点数
                                         start = tt.length + start;
                                         if (start >= mScreenWidth) {
                                             start = 0;
                                         }
                                     }
+                                    /*End*/
+
                                     mDraws.clear();
                                     mDoubls.clear();
                                     TempDoubles.clear();
@@ -670,7 +707,7 @@ public class MyThread extends SurfaceView implements Runnable, SurfaceHolder.Cal
         return format.format(date);
     }
 
-    private int[] CaculateXinLv(ArrayList<Float> datas) {
+    private int[] CalculateXinLv(ArrayList<Float> datas) {
         float[] mFloats = new float[datas.size()];
         float[] mDaoshu = new float[datas.size()];
         for (int i = 0; i < datas.size(); i++) {

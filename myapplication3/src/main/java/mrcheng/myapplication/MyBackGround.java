@@ -50,10 +50,10 @@ public class MyBackGround extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 //        setBackgroundColor();
-        Caculate caculate=new Caculate(xdpi,mScreenWidth,mScreenHeigth);
-        NumperMM=caculate.getNumPerMM();
-        Vertical_line=caculate.getVertical_line();
-        Horization_line=caculate.getHorization_line();
+        Calculate calculate=new Calculate(xdpi,mScreenWidth,mScreenHeigth);
+        NumperMM=calculate.getNumPerMM();
+        Vertical_line=calculate.getVertical_line();
+        Horization_line=calculate.getHorization_line();
         mPaint = new Paint();
         mPaint.setColor(0x7FFF5151);
         // 画笔为绿色

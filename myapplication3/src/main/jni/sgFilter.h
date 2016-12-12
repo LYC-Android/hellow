@@ -8,8 +8,8 @@
 extern "C" {
 #endif
 
-#define d 1
-#define N 15
+//#define d 1
+#define N 7//15
 struct matrix_instance//����ṹ��
 {
 	int numRows;     /**< number of rows of the matrix.     */
@@ -17,7 +17,7 @@ struct matrix_instance//����ṹ��
 	double *pData;     /**< points to the data of the matrix. */
 };
 
-extern void mat_mul(struct matrix_instance *a, struct matrix_instance *b, struct matrix_instance *c);//������ˣ�cΪ���
+//extern void mat_mul(struct matrix_instance *a, struct matrix_instance *b, struct matrix_instance *c);//������ˣ�cΪ���
 
 extern void mat_trans(struct matrix_instance *pSrc, struct matrix_instance *pDst);//����ת��
 
